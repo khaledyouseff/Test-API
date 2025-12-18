@@ -6,11 +6,12 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 
 public class postUserTest {
+    private static final String API_KEY = "reqres-free-v1";
 
     @Test
     public void testCreateUser() {
 
-        // SSL fix
+
         RestAssured.useRelaxedHTTPSValidation();
         RestAssured.baseURI = "https://reqres.in";
 
@@ -25,7 +26,7 @@ public class postUserTest {
                 given()
                         .contentType("application/json")
                         .body(postRequestBody)
-                        .when()
+                        .when().header("x-api-key", API_KEY)
                         .post("/api/users")
                         .then()
                         .extract().response();
